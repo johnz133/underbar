@@ -78,10 +78,8 @@
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, test) {
-    var i = 0;
-    var j = 0;
-    var arr = [];
-    //while loop for performance
+    var i = 0, j = 0, arr =[];
+    //while loop for best performance when duplicating array
     //http://jsperf.com/new-array-vs-splice-vs-slice/67
     while(i < collection.length) { 
       if(test(collection[i])) {
@@ -114,6 +112,11 @@
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
+    var results = Array(collection.length);
+    for(var i = 0; i < collection.length; i++){
+      results[i] = iterator(collection[i], i, collection);
+    }
+    return results;
   };
 
   /*
@@ -155,6 +158,15 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
+    var i = 0;
+    if(accumulator == undefined){
+      accumulator = collection[0];
+      i++;
+    }
+    for(;i<collection.length; i++){
+      accumulator = iterator(accumulator, collection[i]);
+    }
+    return accumulator;
   };
 
   // Determine if the array or object contains a given value (using `===`).
