@@ -212,6 +212,10 @@
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    if(collection.length == 0 || _.every(collection, function(x){ return iterator ? !iterator(x) : !x; })){
+      return false;
+    } 
+    return true;
   };
 
 
