@@ -78,17 +78,16 @@
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, test) {
-    var i = 0, j = 0, arr =[];
+    var i = 0, j = 0, array = [];
     //while loop for best performance when duplicating array
     //http://jsperf.com/new-array-vs-splice-vs-slice/67
     while(i < collection.length) { 
       if(test(collection[i])) {
-        arr[j] = collection[i]; 
-        j++;
+        array[j++] = collection[i]; 
       }
       i++;
     }
-    return arr;
+    return array;
   };
 
   // Return all elements of an array that don't pass a truth test.
@@ -161,8 +160,7 @@
     if(collection instanceof Array){
       var i = 0;
       if(accumulator == undefined){
-        accumulator = collection[0];
-        i++;
+        accumulator = collection[i++];
       }
       for(;i<collection.length; i++){
         accumulator = iterator(accumulator, collection[i]);
@@ -338,7 +336,7 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
-    var  i = array.length, j=0, result = new Array(i), temp;
+    var  i = array.length, j = 0, result = new Array(i), temp;
     while(i--){
       result[i] = array[j++];
     }
