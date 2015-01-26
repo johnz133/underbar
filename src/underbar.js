@@ -302,6 +302,14 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    var results = {};
+    return function() {
+      var values = _.reduce(arguments, function(sum, item) { return sum + item; }, "");
+      if(results[values] == undefined){
+        results[values] = func.apply(this, arguments);
+      }
+      return results[values];
+    };
   };
 
   // Delays a function for the given number of milliseconds, and then calls
